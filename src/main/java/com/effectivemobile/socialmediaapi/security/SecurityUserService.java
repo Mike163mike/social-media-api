@@ -1,8 +1,8 @@
-package com.mike.usermessages.service;
+package com.effectivemobile.socialmediaapi.security;
 
-import com.mike.usermessages.model.Role;
-import com.mike.usermessages.model.User;
-import com.mike.usermessages.repository.UserRepository;
+import com.effectivemobile.socialmediaapi.model.Role;
+import com.effectivemobile.socialmediaapi.model.User;
+import com.effectivemobile.socialmediaapi.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

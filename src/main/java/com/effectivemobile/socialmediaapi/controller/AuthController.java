@@ -1,7 +1,7 @@
-package com.mike.usermessages.controller;
+package com.effectivemobile.socialmediaapi.controller;
 
-import com.mike.usermessages.service.AuthService;
-import com.mike.usermessages.mapper.dto.UserRegRequestDto;
+import com.effectivemobile.socialmediaapi.dto.UserRegRequestDto;
+import com.effectivemobile.socialmediaapi.security.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

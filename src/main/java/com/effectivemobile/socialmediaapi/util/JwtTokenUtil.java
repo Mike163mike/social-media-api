@@ -1,4 +1,4 @@
-package com.mike.usermessages.util;
+package com.effectivemobile.socialmediaapi.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

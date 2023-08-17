@@ -1,9 +1,9 @@
-package com.mike.usermessages.controller;
+package com.effectivemobile.socialmediaapi.controller;
 
-import com.mike.usermessages.exception.AppException;
-import com.mike.usermessages.service.UserService;
-import com.mike.usermessages.mapper.dto.UserResponseDto;
-import com.mike.usermessages.mapper.UserResponseMapper;
+import com.effectivemobile.socialmediaapi.exception.AppException;
+import com.effectivemobile.socialmediaapi.mapper.UserResponseMapper;
+import com.effectivemobile.socialmediaapi.dto.UserResponseDto;
+import com.effectivemobile.socialmediaapi.security.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;

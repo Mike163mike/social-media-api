@@ -1,4 +1,4 @@
-package com.mike.usermessages.configuration;
+package com.effectivemobile.socialmediaapi.configuration;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
@@ -18,9 +18,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("User Messages Api")
+                        .title("Social Media Api")
                         .version("1.0.0")
-                        .description("App for safe create, edit and delete messages.")
+                        .description("Social media platform. App for safe create, edit and delete messages. For free communication.")
                         .contact(
                                 new Contact()
                                         .email("mick_mick_mick@icloud.com")

@@ -1,11 +1,10 @@
-package com.mike.usermessages.service;
+package com.effectivemobile.socialmediaapi.service;
 
-import com.mike.usermessages.model.Message;
-import com.mike.usermessages.repository.MessageRepository;
+import com.effectivemobile.socialmediaapi.model.Message;
+import com.effectivemobile.socialmediaapi.repository.MessageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.List;
 
 @Service

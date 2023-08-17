@@ -1,4 +1,4 @@
-package com.mike.usermessages.model;
+package com.effectivemobile.socialmediaapi.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

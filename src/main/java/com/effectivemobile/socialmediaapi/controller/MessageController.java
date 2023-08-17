@@ -1,10 +1,10 @@
-package com.mike.usermessages.controller;
+package com.effectivemobile.socialmediaapi.controller;
 
-import com.mike.usermessages.service.MessageService;
-import com.mike.usermessages.mapper.dto.MessageRequestDto;
-import com.mike.usermessages.mapper.dto.MessageResponseDto;
-import com.mike.usermessages.mapper.MessageRequestMapper;
-import com.mike.usermessages.mapper.MessageResponseMapper;
+import com.effectivemobile.socialmediaapi.mapper.MessageRequestMapper;
+import com.effectivemobile.socialmediaapi.mapper.MessageResponseMapper;
+import com.effectivemobile.socialmediaapi.dto.MessageRequestDto;
+import com.effectivemobile.socialmediaapi.dto.MessageResponseDto;
+import com.effectivemobile.socialmediaapi.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;

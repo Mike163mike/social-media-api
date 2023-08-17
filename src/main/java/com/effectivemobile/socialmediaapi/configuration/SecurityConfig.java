@@ -1,7 +1,8 @@
-package com.mike.usermessages.configuration;
+package com.effectivemobile.socialmediaapi.configuration;
 
-import com.mike.usermessages.security.JwtRequestFilter;
-import com.mike.usermessages.service.SecurityUserService;
+
+import com.effectivemobile.socialmediaapi.security.JwtRequestFilter;
+import com.effectivemobile.socialmediaapi.security.SecurityUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,20 +29,32 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .cors().disable()
-                .authorizeHttpRequests()
-                // .requestMatchers("/test/**").authenticated()
-                .requestMatchers("/message/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/user/**").hasRole("ADMIN")
-                .anyRequest().permitAll()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                .and()
+                .authorizeHttpRequests((authorizeHttpRequests) ->
+                        authorizeHttpRequests
+                                .requestMatchers("/message/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/user/**").hasRole("ADMIN")
+                                .requestMatchers("/**").permitAll()
+                                .anyRequest().authenticated())
+                .sessionManagement(httpSecuritySessionManagementConfigurer ->
+                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
+                        httpSecurityExceptionHandlingConfigurer
+                                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
+
+//                .authorizeHttpRequests()
+//                // .requestMatchers("/test/**").authenticated()
+//                .requestMatchers("/message/**").hasAnyRole("USER", "ADMIN")
+//                .requestMatchers("/user/**").hasRole("ADMIN")
+//                .anyRequest().permitAll()
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+//                .and()
+//                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

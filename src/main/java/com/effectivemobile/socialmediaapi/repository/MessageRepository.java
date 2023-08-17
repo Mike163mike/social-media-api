@@ -1,6 +1,6 @@
-package com.mike.usermessages.repository;
+package com.effectivemobile.socialmediaapi.repository;
 
-import com.mike.usermessages.model.Message;
+import com.effectivemobile.socialmediaapi.model.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

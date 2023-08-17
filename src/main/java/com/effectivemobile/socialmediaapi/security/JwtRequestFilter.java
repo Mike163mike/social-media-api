@@ -1,6 +1,6 @@
-package com.mike.usermessages.security;
+package com.effectivemobile.socialmediaapi.security;
 
-import com.mike.usermessages.util.JwtTokenUtil;
+import com.effectivemobile.socialmediaapi.util.JwtTokenUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import jakarta.servlet.FilterChain;

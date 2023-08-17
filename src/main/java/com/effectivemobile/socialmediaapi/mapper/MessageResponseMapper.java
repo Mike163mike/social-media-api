@@ -1,7 +1,7 @@
-package com.mike.usermessages.mapper;
+package com.effectivemobile.socialmediaapi.mapper;
 
-import com.mike.usermessages.model.Message;
-import com.mike.usermessages.mapper.dto.MessageResponseDto;
+import com.effectivemobile.socialmediaapi.dto.MessageResponseDto;
+import com.effectivemobile.socialmediaapi.model.Message;
 import org.mapstruct.Mapper;
 
 import java.util.List;

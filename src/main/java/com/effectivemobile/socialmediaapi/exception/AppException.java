@@ -1,4 +1,4 @@
-package com.mike.usermessages.exception;
+package com.effectivemobile.socialmediaapi.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

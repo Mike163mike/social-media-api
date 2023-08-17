@@ -1,10 +1,10 @@
-package com.mike.usermessages.service;
+package com.effectivemobile.socialmediaapi.security;
 
-import com.mike.usermessages.exception.AppException;
-import com.mike.usermessages.model.User;
-import com.mike.usermessages.mapper.dto.JwtResponseDto;
-import com.mike.usermessages.mapper.dto.UserRegRequestDto;
-import com.mike.usermessages.util.JwtTokenUtil;
+import com.effectivemobile.socialmediaapi.exception.AppException;
+import com.effectivemobile.socialmediaapi.dto.JwtResponseDto;
+import com.effectivemobile.socialmediaapi.dto.UserRegRequestDto;
+import com.effectivemobile.socialmediaapi.model.User;
+import com.effectivemobile.socialmediaapi.util.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

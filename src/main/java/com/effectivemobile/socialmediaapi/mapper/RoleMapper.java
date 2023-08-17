@@ -1,7 +1,7 @@
-package com.mike.usermessages.mapper;
+package com.effectivemobile.socialmediaapi.mapper;
 
-import com.mike.usermessages.model.Role;
-import com.mike.usermessages.mapper.dto.RoleDto;
+import com.effectivemobile.socialmediaapi.dto.RoleDto;
+import com.effectivemobile.socialmediaapi.model.Role;
 import org.mapstruct.Mapper;
 
 @Mapper

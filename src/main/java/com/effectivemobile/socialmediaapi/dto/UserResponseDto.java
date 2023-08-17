@@ -1,7 +1,7 @@
-package com.mike.usermessages.mapper.dto;
+package com.effectivemobile.socialmediaapi.dto;
 
-import com.mike.usermessages.model.Message;
-import com.mike.usermessages.model.Role;
+import com.effectivemobile.socialmediaapi.model.Message;
+import com.effectivemobile.socialmediaapi.model.Role;
 import lombok.Getter;
 import lombok.Setter;
 

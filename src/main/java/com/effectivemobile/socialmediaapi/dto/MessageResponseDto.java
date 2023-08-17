@@ -1,4 +1,4 @@
-package com.mike.usermessages.mapper.dto;
+package com.effectivemobile.socialmediaapi.dto;
 
 import lombok.Getter;
 import lombok.Setter;
