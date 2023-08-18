@@ -3,6 +3,7 @@ package com.effectivemobile.socialmediaapi.service;
 import com.effectivemobile.socialmediaapi.model.Message;
 import com.effectivemobile.socialmediaapi.repository.MessageRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class MessageService {
     }
 
     public List<Message> getAllMessages() {
-        return messageRepository.findAll();
+        return messageRepository.findAll(Sort.by(Sort.Direction.DESC, "editTime"));
     }
 
     public Message findById(Integer id) {

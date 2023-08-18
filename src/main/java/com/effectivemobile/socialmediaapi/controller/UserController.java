@@ -27,8 +27,7 @@ public class UserController {
     @Operation(summary = "Set new list of roles for earlier created users.")
     @PutMapping(value = "/{username}")
     public ResponseEntity<?> userEdit(@PathVariable String username, @RequestBody List<String> roles) {
-        return new ResponseEntity<>(userResponseMapper.map(userService.editUserRoles(username, roles)),
-                HttpStatus.OK);
+        return  ResponseEntity.ok(userResponseMapper.map(userService.editUserRoles(username, roles)));
     }
 
     @Operation(summary = "Get all users.", description = "Get all users from system.")

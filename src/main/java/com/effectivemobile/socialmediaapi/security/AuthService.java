@@ -52,11 +52,7 @@ public class AuthService {
                     HttpStatus.BAD_REQUEST);
         }
         User user = new User();
-        user.setFirstName(userRegRequestDto.getFirstName());
-        user.setMiddleName(userRegRequestDto.getMiddleName());
-        user.setLastName(userRegRequestDto.getLastName());
         user.setUsername(userRegRequestDto.getUsername());
-        user.setEmail(userRegRequestDto.getEmail());
         user.setPassword(userRegRequestDto.getPassword());
         userService.createUser(user);
         return ResponseEntity.ok("New user created successfully.");

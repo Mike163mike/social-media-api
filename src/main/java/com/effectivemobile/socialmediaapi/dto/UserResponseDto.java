@@ -13,13 +13,12 @@ import java.util.List;
 public class UserResponseDto {
 
     private Integer id;
-    private String firstName;
-    private String middleName;
-    private String lastName;
     private String username;
     private String email;
     private List<Role> roles;
     private List<Message> messages;
     private Instant createTime;
     private Instant editTime;
+    private List<Integer> mySubscribers;
+    private List<Integer> iSubscribe;
 }

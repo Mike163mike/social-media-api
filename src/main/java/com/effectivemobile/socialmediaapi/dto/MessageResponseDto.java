@@ -10,7 +10,9 @@ import java.time.Instant;
 public class MessageResponseDto {
 
     private Integer id;
+    private String title;
     private String message;
+    private String image;
     private Instant createTime;
     private Instant editTime;
     private Integer userId;

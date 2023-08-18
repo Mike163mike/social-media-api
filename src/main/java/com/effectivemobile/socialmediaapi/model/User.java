@@ -1,8 +1,12 @@
 package com.effectivemobile.socialmediaapi.model;
 
+import io.hypersistence.utils.hibernate.type.array.IntArrayType;
+import io.hypersistence.utils.hibernate.type.array.StringArrayType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.Type;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.Instant;
 import java.util.List;
@@ -16,9 +20,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String firstName;
-    private String middleName;
-    private String lastName;
     @Column(unique = true)
     private String username;
     @Column(unique = true)
@@ -27,9 +28,22 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Role> roles;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private List<Message> messages;
-    private boolean enable;
+    //    @CreatedDate
     private Instant createTime;
+    //    @LastModifiedDate
     private Instant editTime;
+    @Type(IntArrayType.class)
+    @Column(
+            name = "my_subscribers",
+            columnDefinition = "int[]"
+    )
+    private List<Integer> mySubscribers;
+    @Type(IntArrayType.class)
+    @Column(
+            name = "i_subscribe",
+            columnDefinition = "int[]"
+    )
+    private List<Integer> iSubscribe;
 }

@@ -28,7 +28,6 @@ public class UserService {
         user.setCreateTime(Instant.now());
         user.setEditTime(Instant.now());
         user.setRoles(mapStringToRole(List.of("ROLE_USER")));
-        user.setEnable(true);
         userRepository.save(user);
     }
 
