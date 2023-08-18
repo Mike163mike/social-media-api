@@ -1,19 +1,20 @@
 package com.effectivemobile.socialmediaapi.controller;
 
-import com.effectivemobile.socialmediaapi.mapper.MessageRequestMapper;
-import com.effectivemobile.socialmediaapi.mapper.MessageResponseMapper;
 import com.effectivemobile.socialmediaapi.dto.MessageRequestDto;
 import com.effectivemobile.socialmediaapi.dto.MessageResponseDto;
+import com.effectivemobile.socialmediaapi.mapper.MessageRequestMapper;
+import com.effectivemobile.socialmediaapi.mapper.MessageResponseMapper;
+import com.effectivemobile.socialmediaapi.model.Message;
 import com.effectivemobile.socialmediaapi.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @RequestMapping("/message")
@@ -37,24 +38,32 @@ public class MessageController {
         return ResponseEntity.ok(newMessageResponseDto);
     }
 
-    @Operation(summary = "Get all messages", description = "get all messages from all " +
-            "users.")
-    @GetMapping
-    public ResponseEntity<List<MessageResponseDto>> getAllMessages() {
-        List<MessageResponseDto> messageResponseDtos = messageResponseMapper
-                .toList(messageService.getAllMessages());
+    @Operation(summary = "Get pages of messages", description = "Get all messages published by particular user.")
+    @GetMapping("/page/{username}")
+    public ResponseEntity<Page<Message>> getAllMessages(@PathVariable(name = "username") String username) {
+        Page<Message> messageResponseDtos = messageService.findAllMessagesByUserId(username);
         return ResponseEntity.ok(messageResponseDtos);
     }
 
-    @GetMapping("/{id}")
+
+//    @Operation(summary = "Get all messages", description = "get all messages from all " +
+//            "users.")
+//    @GetMapping
+//    public ResponseEntity<List<MessageResponseDto>> getAllMessages() {
+//        List<MessageResponseDto> messageResponseDtos = messageResponseMapper
+//                .toList(messageService.getAllMessages());
+//        return ResponseEntity.ok(messageResponseDtos);
+//    }
+
+    @GetMapping("/{message_id}")
     @Operation(summary = "Get message by id")
-    public ResponseEntity<MessageResponseDto> getMessageById(@PathVariable Integer id) {
+    public ResponseEntity<MessageResponseDto> getMessageById(@PathVariable(name = "message_id") Integer message_id) {
         try {
-            messageService.findById(id);
+            messageService.findById(message_id);
         } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("Not found message with id = " + id + ".");
+            throw new NoSuchElementException("Not found message with id = " + message_id + ".");
         }
-        MessageResponseDto messageResponseDto = messageResponseMapper.map(messageService.findById(id));
+        MessageResponseDto messageResponseDto = messageResponseMapper.map(messageService.findById(message_id));
         return ResponseEntity.ok(messageResponseDto);
     }
 

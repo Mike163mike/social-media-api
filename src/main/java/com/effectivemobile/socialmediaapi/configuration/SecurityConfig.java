@@ -32,9 +32,10 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests()
-                // .requestMatchers("/test/**").authenticated()
-                .requestMatchers("/message/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/registration/**").anonymous()
                 .requestMatchers("/user/**").hasRole("ADMIN")
+                .requestMatchers("/message/**").hasAnyRole("USER", "ADMIN")
+
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -43,10 +44,6 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-
-
-
 
 
 //                .authorizeHttpRequests((authorizeHttpRequests) ->

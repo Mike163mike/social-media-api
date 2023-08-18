@@ -39,7 +39,7 @@ create table users_roles
 (
     user_id  integer not null,
     roles_id integer not null,
-    constraint unique_roles_id unique (roles_id),
+--     constraint unique_roles_id unique (roles_id),
     constraint fk_roles_id
         foreign key (roles_id)
             references role,

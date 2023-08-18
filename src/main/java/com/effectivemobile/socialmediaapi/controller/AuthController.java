@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/security")
+@RequestMapping("/registration")
 @RestController
 @Tag(name = "Registration of users", description = "The registration API. The endpoint for registration " +
         "new users with receiving jwt.")
@@ -17,7 +17,7 @@ public class AuthController {
     private final AuthService authService;
 
     @Operation(summary = "Registration new user and receiving jwt.")
-    @PostMapping("/registration")
+    @PostMapping
     public ResponseEntity<?> createNewUser(@RequestBody UserRegRequestDto userRegRequestDto) {
         authService.createUser(userRegRequestDto);
         return authService.createAuthToken(userRegRequestDto);

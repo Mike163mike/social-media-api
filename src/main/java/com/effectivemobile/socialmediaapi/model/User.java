@@ -1,12 +1,14 @@
 package com.effectivemobile.socialmediaapi.model;
 
 import io.hypersistence.utils.hibernate.type.array.IntArrayType;
-import io.hypersistence.utils.hibernate.type.array.StringArrayType;
+import io.hypersistence.utils.hibernate.type.array.ListArrayType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
@@ -30,17 +33,17 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<Message> messages;
-    //    @CreatedDate
+    @CreatedDate
     private Instant createTime;
-    //    @LastModifiedDate
+    @LastModifiedDate
     private Instant editTime;
-    @Type(IntArrayType.class)
+    @Type(ListArrayType.class)
     @Column(
             name = "my_subscribers",
             columnDefinition = "int[]"
     )
     private List<Integer> mySubscribers;
-    @Type(IntArrayType.class)
+    @Type(ListArrayType.class)
     @Column(
             name = "i_subscribe",
             columnDefinition = "int[]"
