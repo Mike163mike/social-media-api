@@ -3,12 +3,13 @@ package com.effectivemobile.socialmediaapi.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
-public class UserSubscriberDto {
+public class PostDto {
 
-    private UUID id;
-    private String username;
+    private String title;
+
+    private String message;
+
+    private String image;
 }

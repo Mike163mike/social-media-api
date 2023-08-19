@@ -22,12 +22,12 @@ public class FriendRequestService {
 
     public FriendRequest addFriend(UUID friendId) {
         User sender = userRepository.findUserByUsername(securityContextService.getUserName());
-        sender.getISubscribe().add(friendId);
+        sender.getFollow().add(friendId);
         sender = userRepository.save(sender);
 
         User receiver = userRepository.findById(friendId)
-            .orElseThrow(() -> new AppException("User not found"));
-        receiver.getMySubscribers().add(sender.getId());
+                .orElseThrow(() -> new AppException("User not found."));
+        receiver.getFollowers().add(sender.getId());
 
         receiver = userRepository.save(receiver);
         FriendRequest friendRequest = new FriendRequest();
@@ -45,6 +45,24 @@ public class FriendRequestService {
     public List<FriendRequest> getInRequests() {
         User sender = userRepository.findUserByUsername(securityContextService.getUserName());
         return sender.getInRequests();
+    }
+
+    public void acceptRequest(FriendRequest friendRequest) {
+        repository.delete(friendRequest);
+    }
+
+    public void declineRequest(FriendRequest friendRequest) {
+        User receiver = userRepository.findById(friendRequest.getReceiver().getId())
+                        .orElseThrow(() -> new AppException("User not found."));
+        receiver.getFollowers().remove(friendRequest.getSender().getId());
+        userRepository.save(receiver);
+        repository.delete(friendRequest);
+    }
+
+    public void removeFriend(UUID id) {
+        User sender = userRepository.findUserByUsername(securityContextService.getUserName());
+        sender.getFollowers().remove(id);
+        userRepository.save(sender);
     }
 }
 

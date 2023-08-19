@@ -24,8 +24,6 @@ public class Message {
     @LastModifiedDate
     private Instant editTime;
 
-    private String title;
-
     private String message;
 
     @ManyToOne

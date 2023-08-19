@@ -4,6 +4,7 @@ import com.effectivemobile.socialmediaapi.exception.AppException;
 import com.effectivemobile.socialmediaapi.dto.JwtResponseDto;
 import com.effectivemobile.socialmediaapi.dto.UserRegRequestDto;
 import com.effectivemobile.socialmediaapi.model.User;
+import com.effectivemobile.socialmediaapi.service.UserService;
 import com.effectivemobile.socialmediaapi.util.JwtTokenUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

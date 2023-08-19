@@ -21,7 +21,6 @@ public class SecurityUserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

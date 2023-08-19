@@ -20,6 +20,6 @@ public class UserResponseDto {
     private List<Message> messages;
     private Instant createTime;
     private Instant editTime;
-    private List<UUID> mySubscribers;
-    private List<UUID> iSubscribe;
+    private List<UUID> followers;
+    private List<UUID> follow;
 }

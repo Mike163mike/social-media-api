@@ -1,4 +1,4 @@
-package com.effectivemobile.socialmediaapi.security;
+package com.effectivemobile.socialmediaapi.service;
 
 import com.effectivemobile.socialmediaapi.exception.AppException;
 import com.effectivemobile.socialmediaapi.model.Role;

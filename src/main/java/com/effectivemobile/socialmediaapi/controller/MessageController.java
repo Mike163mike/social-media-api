@@ -28,9 +28,10 @@ public class MessageController {
     private final MessageResponseMapper messageResponseMapper;
     private final MessageRequestMapper messageRequestMapper;
 
-    @Operation(summary = "Create new message")
-    @PostMapping
-    public ResponseEntity<MessageResponseDto> createMessage(@RequestBody MessageRequestDto messageRequestDto) {
+    @Operation(summary = "Create new message for my friend")
+    @PostMapping("/{id}")
+    public ResponseEntity<MessageResponseDto> createMessage(@PathVariable UUID id,
+                                                            @RequestBody MessageRequestDto messageRequestDto) {
         MessageResponseDto newMessageResponseDto = messageResponseMapper.map(messageService
                 .saveMessage(messageRequestMapper
                         .map(messageRequestDto)));

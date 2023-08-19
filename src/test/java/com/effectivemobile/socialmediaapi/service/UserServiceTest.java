@@ -1,6 +1,5 @@
 package com.effectivemobile.socialmediaapi.service;
 
-import com.effectivemobile.socialmediaapi.security.UserService;
 import com.effectivemobile.socialmediaapi.AbstractTest;
 import com.effectivemobile.socialmediaapi.model.Role;
 import com.effectivemobile.socialmediaapi.model.User;

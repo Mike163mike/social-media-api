@@ -52,6 +52,14 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "receiver_id")
+    private List<Message> messagesIn;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "sender_id")
+    private List<Message> messagesOut;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "receiver_id")
     private List<FriendRequest> inRequests;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -60,15 +68,15 @@ public class User {
 
     @Type(ListArrayType.class)
     @Column(
-        name = "my_subscribers",
+        name = "followers",
         columnDefinition = " uuid[]"
     )
-    private List<UUID> mySubscribers = new ArrayList<>();
+    private List<UUID> followers = new ArrayList<>();
 
     @Type(ListArrayType.class)
     @Column(
-        name = "i_subscribe",
+        name = "follow",
         columnDefinition = "uuid[]"
     )
-    private List<UUID> iSubscribe = new ArrayList<>();
+    private List<UUID> follow = new ArrayList<>();
 }

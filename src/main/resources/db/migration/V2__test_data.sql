@@ -1,4 +1,4 @@
--- INSERT INTO users (id, create_time, edit_time, email, username, password, i_subscribe, my_subscribers)
+-- INSERT INTO users (id, create_time, edit_time, email, username, password, follow, followers)
 -- VALUES ('a074aa9d-0b51-4769-9225-16498ead172e',
 --         now(),
 --         now(),
