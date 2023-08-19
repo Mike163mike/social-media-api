@@ -2,6 +2,7 @@ package com.effectivemobile.socialmediaapi.model;
 
 import io.hypersistence.utils.hibernate.type.array.IntArrayType;
 import io.hypersistence.utils.hibernate.type.array.ListArrayType;
+import io.hypersistence.utils.hibernate.type.array.StringArrayType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -21,8 +23,8 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @Column(unique = true)
     private String username;
     @Column(unique = true)
@@ -37,16 +39,16 @@ public class User {
     private Instant createTime;
     @LastModifiedDate
     private Instant editTime;
-    @Type(ListArrayType.class)
+    @Type(StringArrayType.class)
     @Column(
             name = "my_subscribers",
-            columnDefinition = "int[]"
+            columnDefinition = "String[]"
     )
-    private List<Integer> mySubscribers;
-    @Type(ListArrayType.class)
+    private List<UUID> mySubscribers;
+    @Type(StringArrayType.class)
     @Column(
             name = "i_subscribe",
-            columnDefinition = "int[]"
+            columnDefinition = "String[]"
     )
-    private List<Integer> iSubscribe;
+    private List<UUID> iSubscribe;
 }

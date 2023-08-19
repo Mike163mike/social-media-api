@@ -17,7 +17,7 @@ public class AuthController {
     private final AuthService authService;
 
     @Operation(summary = "Registration new user and receiving jwt.")
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity<?> createNewUser(@RequestBody UserRegRequestDto userRegRequestDto) {
         authService.createUser(userRegRequestDto);
         return authService.createAuthToken(userRegRequestDto);
@@ -26,7 +26,8 @@ public class AuthController {
 
     @Operation(summary = "Receiving jwt by registered users. FOR TESTING ONLY!!!!")
     @PostMapping("/getJwt")
-    public ResponseEntity<?> getJwt(@RequestParam String username, @RequestParam String password) {
-        return authService.createAuthToken(username, password);
+    public ResponseEntity<?> getJwt(@RequestBody UserRegRequestDto userRegRequestDto) {
+        return authService.createAuthToken(userRegRequestDto.getUsername(),
+                userRegRequestDto.getPassword());
     }
 }

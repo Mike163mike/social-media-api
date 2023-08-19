@@ -7,18 +7,19 @@ import lombok.Setter;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class UserResponseDto {
 
-    private Integer id;
+    private UUID id;
     private String username;
     private String email;
     private List<Role> roles;
     private List<Message> messages;
     private Instant createTime;
     private Instant editTime;
-    private List<Integer> mySubscribers;
-    private List<Integer> iSubscribe;
+    private List<UUID> mySubscribers;
+    private List<UUID> iSubscribe;
 }

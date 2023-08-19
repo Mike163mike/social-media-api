@@ -1,13 +1,13 @@
 create table users
 (
-    id          serial  not null,
+    id          uuid  not null,
     create_time timestamp(6) with time zone,
     edit_time   timestamp(6) with time zone,
     email       varchar(255),
     password    varchar(255),
     username    varchar(255),
-    my_subscribers integer[],
-    i_subscribe integer[],
+    my_subscribers uuid[],
+    i_subscribe uuid[],
     primary key (id),
     constraint unique_email unique (email),
     constraint unique_username unique (username)
@@ -15,13 +15,13 @@ create table users
 
 create table message
 (
-    id          serial not null,
+    id          uuid not null,
     create_time timestamp(6) with time zone,
     edit_time   timestamp(6) with time zone,
     title       varchar(255),
     message     text,
     image       varchar(255),
-    user_id     integer,
+    user_id     uuid,
     primary key (id),
     constraint fk_users
         foreign key (user_id)
@@ -37,8 +37,8 @@ create table role
 
 create table users_roles
 (
-    user_id  integer not null,
-    roles_id integer not null,
+    user_id  uuid not null,
+    roles_id int not null,
 --     constraint unique_roles_id unique (roles_id),
     constraint fk_roles_id
         foreign key (roles_id)

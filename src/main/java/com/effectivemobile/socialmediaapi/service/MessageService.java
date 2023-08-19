@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class MessageService {
@@ -73,16 +75,16 @@ public class MessageService {
 //        return messageRepository.findAll(Sort.by(Sort.Direction.DESC, "editTime"));
 //    }
 
-    public Message findById(Integer id) {
+    public Message findById(UUID id) {
         return messageRepository.findById(id)
                 .orElseThrow();
     }
 
-    public void deleteMessageById(Integer id) {
+    public void deleteMessageById(UUID id) {
         messageRepository.deleteById(id);
     }
 
-    public Message editMessageById(Integer id, String newMessage) {
+    public Message editMessageById(UUID id, String newMessage) {
         Message message = messageRepository.findById(id).orElseThrow();
         message.setMessage(newMessage);
         messageRepository.save(message);

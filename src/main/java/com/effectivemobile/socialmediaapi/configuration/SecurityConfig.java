@@ -32,6 +32,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests()
+
                 .requestMatchers("/registration/**").anonymous()
                 .requestMatchers("/user/**").hasRole("ADMIN")
                 .requestMatchers("/message/**").hasAnyRole("USER", "ADMIN")

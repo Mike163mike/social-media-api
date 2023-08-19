@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @RequestMapping("/message")
 @RestController
@@ -57,7 +58,7 @@ public class MessageController {
 
     @GetMapping("/{message_id}")
     @Operation(summary = "Get message by id")
-    public ResponseEntity<MessageResponseDto> getMessageById(@PathVariable(name = "message_id") Integer message_id) {
+    public ResponseEntity<MessageResponseDto> getMessageById(@PathVariable(name = "message_id") UUID message_id) {
         try {
             messageService.findById(message_id);
         } catch (NoSuchElementException e) {
@@ -69,7 +70,7 @@ public class MessageController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Edit message")
-    public ResponseEntity<MessageResponseDto> editMessageById(@PathVariable Integer id,
+    public ResponseEntity<MessageResponseDto> editMessageById(@PathVariable UUID id,
                                                               @RequestBody String message) {
         try {
             messageService.findById(id);
@@ -83,7 +84,7 @@ public class MessageController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete message by id")
-    public ResponseEntity<String> deleteMessageById(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteMessageById(@PathVariable UUID id) {
         try {
             messageService.findById(id);
         } catch (NoSuchElementException e) {
