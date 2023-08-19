@@ -48,7 +48,7 @@ public class User {
     @Type(StringArrayType.class)
     @Column(
             name = "i_subscribe",
-            columnDefinition = "String[]"
+            columnDefinition = "uuid[]"
     )
     private List<UUID> iSubscribe;
 }

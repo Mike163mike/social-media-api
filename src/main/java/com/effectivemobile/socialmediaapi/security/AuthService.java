@@ -48,12 +48,13 @@ public class AuthService {
 
     public ResponseEntity<?> createUser(UserRegRequestDto userRegRequestDto) {
         if (userService.getUserByUsername(userRegRequestDto.getUsername()) != null) {
-            return new ResponseEntity<>(new AppException("User with this username already exist"),
-                    HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(new AppException("User with username = " +
+                    userRegRequestDto.getUsername() + "is registered in system  already."));
         }
         User user = new User();
         user.setUsername(userRegRequestDto.getUsername());
         user.setPassword(userRegRequestDto.getPassword());
+        user.setEmail(userRegRequestDto.getEmail());
         userService.createUser(user);
         return ResponseEntity.ok("New user created successfully.");
     }
