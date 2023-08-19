@@ -67,9 +67,9 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public Page<Message> findAllMessagesByUserId(String username) {
-        return messageRepository.findAllByUserUsername(username, TEN_UNIT);
-    }
+//    public Page<Message> findAllMessagesByUserId(String username) {
+//        return messageRepository.findAllByUserUsername(username, TEN_UNIT);
+//    }
 
 //    public List<Message> getAllMessages() {
 //        return messageRepository.findAll(Sort.by(Sort.Direction.DESC, "editTime"));

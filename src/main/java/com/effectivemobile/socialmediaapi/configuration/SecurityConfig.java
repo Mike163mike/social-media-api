@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
 
                 .requestMatchers("/registration/**").anonymous()
-                .requestMatchers("/user/**").hasRole("ADMIN")
+                .requestMatchers("/user/**").authenticated()
                 .requestMatchers("/message/**").hasAnyRole("USER", "ADMIN")
 
                 .anyRequest().permitAll()

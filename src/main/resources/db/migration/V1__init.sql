@@ -1,31 +1,25 @@
-create table users
-(
-    id          uuid  not null,
-    create_time timestamp(6) with time zone,
-    edit_time   timestamp(6) with time zone,
-    email       varchar(255),
-    password    varchar(255),
-    username    varchar(255),
-    my_subscribers uuid[],
-    i_subscribe uuid[],
-    primary key (id),
-    constraint unique_email unique (email),
-    constraint unique_username unique (username)
-);
-
 create table message
 (
-    id          uuid not null,
     create_time timestamp(6) with time zone,
     edit_time   timestamp(6) with time zone,
+    id          uuid not null,
+    receiver_id uuid,
+    sender_id   uuid,
+    message     varchar(255),
     title       varchar(255),
-    message     text,
-    image       varchar(255),
+    primary key (id)
+);
+
+create table post
+(
+    create_time timestamp(6) with time zone,
+    edit_time   timestamp(6) with time zone,
+    id          uuid not null,
     user_id     uuid,
-    primary key (id),
-    constraint fk_users
-        foreign key (user_id)
-            references users
+    image       varchar(255),
+    message     varchar(255),
+    title       varchar(255),
+    primary key (id)
 );
 
 create table role
@@ -35,18 +29,46 @@ create table role
     primary key (id)
 );
 
-create table users_roles
+create table users
 (
-    user_id  uuid not null,
-    roles_id int not null,
---     constraint unique_roles_id unique (roles_id),
-    constraint fk_roles_id
-        foreign key (roles_id)
-            references role,
-    constraint fk_user_id
-        foreign key (user_id)
-            references users
+    create_time    timestamp(6) with time zone,
+    edit_time      timestamp(6) with time zone,
+    id             uuid not null,
+    email          varchar(255) unique,
+    password       varchar(255),
+    username       varchar(255) unique,
+    i_subscribe    uuid[],
+    my_subscribers uuid[],
+    primary key (id)
 );
 
+create table users_roles
+(
+    roles_id integer not null unique,
+    user_id  uuid    not null
+);
 
+alter table if exists message
+    add constraint receiver_fk
+        foreign key (receiver_id)
+            references users;
 
+alter table if exists message
+    add constraint sender_fk
+        foreign key (sender_id)
+            references users;
+
+alter table if exists post
+    add constraint post_user_fk
+        foreign key (user_id)
+            references users;
+
+alter table if exists users_roles
+    add constraint users_roles_role_fk
+        foreign key (roles_id)
+            references role;
+
+alter table if exists users_roles
+    add constraint users_roles_user_fk
+        foreign key (user_id)
+            references users;

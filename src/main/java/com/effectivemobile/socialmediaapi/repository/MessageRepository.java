@@ -11,5 +11,5 @@ import java.util.UUID;
 
 public interface MessageRepository extends JpaRepository<Message, UUID> {
 
-     Page<Message> findAllByUserUsername(String username, Pageable pageable);
+//     Page<Message> findAllByUserUsername(String username, Pageable pageable);
 }

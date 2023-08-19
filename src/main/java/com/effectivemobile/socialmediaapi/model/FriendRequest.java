@@ -1,9 +1,9 @@
 package com.effectivemobile.socialmediaapi.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
@@ -13,20 +13,14 @@ import java.util.UUID;
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-public class Message {
+public class FriendRequest {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @CreatedDate
     private Instant createTime;
-
-    @LastModifiedDate
-    private Instant editTime;
-
-    private String title;
-
-    private String message;
 
     @ManyToOne
     private User sender;

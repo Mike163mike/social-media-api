@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class MessageRequestDto {
 
-    private String message;
-    @JsonProperty("user_id")
-    private Integer userId;
+//    private String message;
+//    @JsonProperty("user_id")
+//    private Integer userId;
 }
