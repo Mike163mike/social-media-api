@@ -3,6 +3,7 @@ package com.effectivemobile.socialmediaapi.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -29,7 +30,9 @@ public class Post {
 
     private String message;
 
-    private String image;
+    @Lob
+   // @Type(type = "org.hibernate.type.ImageType")
+    private byte[] image;
 
     @ManyToOne
     private User user;

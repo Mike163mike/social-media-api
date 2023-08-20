@@ -23,7 +23,4 @@ spring:
 
 jwt:
   secret: dfsdfsd9fsdifosid6f8sflsi
-  lifetime: 30m
-
-#server:
-#  port: 8080
+  lifetime: 60m

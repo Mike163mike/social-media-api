@@ -46,31 +46,25 @@ public class User {
 
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private List<Post> posts;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "receiver_id")
-    private List<Message> messagesIn = new ArrayList<>();
+    private List<Message> messagesIn;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "sender_id")
-    private List<Message> messagesOut = new ArrayList<>();
+    private List<Message> messagesOut;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Column(
-            name = "in_requests",
-            columnDefinition = " uuid[]"
-    )
-    private List<FriendRequest> inRequests = new ArrayList<>();
+    @JoinColumn(name = "receiver_id")
+    private List<FriendRequest> inRequests;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Column(
-            name = "out_requests",
-            columnDefinition = " uuid[]"
-    )
-    private List<FriendRequest> outRequests = new ArrayList<>();
+    @JoinColumn(name = "sender_id")
+    private List<FriendRequest> outRequests;
 
     @Type(ListArrayType.class)
     @Column(

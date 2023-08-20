@@ -3,6 +3,8 @@ package com.effectivemobile.socialmediaapi.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class PostDto {
@@ -11,5 +13,7 @@ public class PostDto {
 
     private String message;
 
-    private String image;
+    private byte[] image;
+
+    private UUID publisherId;
 }

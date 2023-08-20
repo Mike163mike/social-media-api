@@ -3,7 +3,6 @@ package com.effectivemobile.socialmediaapi.service;
 import com.effectivemobile.socialmediaapi.exception.AppException;
 import com.effectivemobile.socialmediaapi.model.Message;
 import com.effectivemobile.socialmediaapi.model.User;
-import com.effectivemobile.socialmediaapi.repository.FriendRequestRepository;
 import com.effectivemobile.socialmediaapi.repository.MessageRepository;
 import com.effectivemobile.socialmediaapi.repository.UserRepository;
 import com.effectivemobile.socialmediaapi.security.SecurityContextService;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -47,7 +45,6 @@ public class MessageService {
             message.setRead(true);
             messageRepository.save(message);
         }
-      //  messageRepository.save(newMessages);
         receiver.getMessagesIn().addAll(newMessages);
         userRepository.save(receiver);
         return newMessages;
