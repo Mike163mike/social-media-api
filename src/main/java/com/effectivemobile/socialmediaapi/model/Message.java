@@ -26,6 +26,8 @@ public class Message {
 
     private String message;
 
+    private boolean read;
+
     @ManyToOne
     private User sender;
 

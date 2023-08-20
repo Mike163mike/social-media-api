@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class FriendRequestService {
 
-    private final FriendRequestRepository repository;
+    private final FriendRequestRepository friendRequestRepository;
     private final UserRepository userRepository;
     private final SecurityContextService securityContextService;
 
@@ -34,7 +34,7 @@ public class FriendRequestService {
         friendRequest.setSender(sender);
         friendRequest.setReceiver(receiver);
 
-        return repository.save(friendRequest);
+        return friendRequestRepository.save(friendRequest);
     }
 
     public List<FriendRequest> getOutRequests() {
@@ -48,7 +48,7 @@ public class FriendRequestService {
     }
 
     public void acceptRequest(FriendRequest friendRequest) {
-        repository.delete(friendRequest);
+        friendRequestRepository.delete(friendRequest);
     }
 
     public void declineRequest(FriendRequest friendRequest) {
@@ -56,7 +56,7 @@ public class FriendRequestService {
                         .orElseThrow(() -> new AppException("User not found."));
         receiver.getFollowers().remove(friendRequest.getSender().getId());
         userRepository.save(receiver);
-        repository.delete(friendRequest);
+        friendRequestRepository.delete(friendRequest);
     }
 
     public void removeFriend(UUID id) {
