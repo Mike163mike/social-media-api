@@ -20,7 +20,13 @@ spring:
     compose:
       enabled: true
       lifecycle-management: start_and_stop
-
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        one-indexed-parameters: false
+      sort:
+        sort-parameter: editTime
 jwt:
   secret: dfsdfsd9fsdifosid6f8sflsi
   lifetime: 60m

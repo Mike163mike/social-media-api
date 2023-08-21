@@ -22,7 +22,7 @@ create table post (
                       edit_time timestamp(6) with time zone,
                       id uuid not null,
                       user_id uuid,
-                      image bytea,
+                      image text,
                       message varchar(255),
                       title varchar(255),
                       primary key (id)

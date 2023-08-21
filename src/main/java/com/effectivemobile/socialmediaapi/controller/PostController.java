@@ -9,11 +9,12 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/post")
@@ -29,17 +30,21 @@ public class PostController {
     @PostMapping
     @Operation(summary = "Create new post")
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
+        UUID publisherId = postService.getMyId();  //crutch
         PostDto newPostDto = postMapper.map(postService
                 .savePost(postMapper.map(postDto)));
+        newPostDto.setPublisherId(publisherId); //crutch
         return ResponseEntity.ok(newPostDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{post_id}")
     @Operation(summary = "Edit my post")
-    public ResponseEntity<PostDto> editPostById(@PathVariable UUID id,
+    public ResponseEntity<PostDto> editPostById(@PathVariable UUID post_id,
                                                 @RequestBody PostDto postDto) {
+        UUID publisherId = postService.getMyId();  //crutch
         PostDto newPostDto = postMapper.map(
-                postService.editPostById(id, postMapper.map(postDto)));
+                postService.editPostById(post_id, postMapper.map(postDto)));
+        newPostDto.setPublisherId(publisherId); //crutch
         return ResponseEntity.ok(newPostDto);
     }
 
@@ -52,30 +57,34 @@ public class PostController {
 
     @GetMapping("/page/{id}")
     @Operation(summary = "Get pages of one user posts by him id")
-    public ResponseEntity<Page<PostDto>> getAllPostsByOneUser(@PathVariable UUID id) {
-        Page<PostDto> postDtos = postService.findAllPostsByPublisherId(id)
-                .stream()
-                .map(postMapper::map)
-                .map()
-                .toList();
+    public ResponseEntity<Page<PostDto>> getAllPostsByOneUser(@PathVariable UUID id,
+                                                              @PageableDefault Pageable pageable) {
+        Page<PostDto> postDtos = postService.findAllPostsByPublisherId(id, pageable)
+                .map(postMapper::map);
         return ResponseEntity.ok(postDtos);
     }
 
     @GetMapping
     @Operation(summary = "Get pages of all my posts")
-    public ResponseEntity<Page<PostDto>> getAllPostsOfMyFollows() {
-        Page<PostDto> postDtos = postService.findAllPostsByPublisherId(postService.getMyId())
-                .stream()
-                .map(postMapper::map)
-                .map()
-                .toList();;
+    public ResponseEntity<Page<PostDto>> getAllMyPosts(@PageableDefault Pageable pageable) {
+        Page<PostDto> postDtos = postService.findAllPostsByPublisherId(postService.getMyId(),
+                        pageable)
+                .map(postMapper::map);
         return ResponseEntity.ok(postDtos);
     }
 
     @GetMapping("/page")
-    @Operation(summary = "Get pages of all users i follow posts.")
-    public ResponseEntity<Page<PostDto>> getAllPostsOfMyFollows() {
-        Page<PostDto> postDtos = postService.findAllPostsOfMyFollows();
-        return ResponseEntity.ok(postDtos);
+    @Operation(summary = "Get pages of all users posts i am follow .")
+    public ResponseEntity<Page<Post>> getCustomers(@RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "10") int size) {
+
+        Page<Post> customerPage = postService.getAllPosts(page, size);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-Page-Number", String.valueOf(customerPage.getNumber()));
+        headers.add("X-Page-Size", String.valueOf(customerPage.getSize()));
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(customerPage);
     }
 }
