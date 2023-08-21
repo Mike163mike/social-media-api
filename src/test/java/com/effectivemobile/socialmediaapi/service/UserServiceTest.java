@@ -23,12 +23,12 @@ class UserServiceTest extends AbstractTest {
         user.setRoles(List.of(roleU));
         user.setUsername("User");
         userRepository.save(user);
-        user = userService.editUserRoles("User", List.of("ROLE_ADMIN"));
+        user = userService.editUserRoles("User", List.of("ROLE_USER"));
         String newRole = user.getRoles().stream()
             .map(Role::getName)
             .findFirst()
             .orElseThrow();
-        Assertions.assertArrayEquals("ROLE_ADMIN".toCharArray(), newRole.toCharArray());
+        Assertions.assertArrayEquals("ROLE_USER".toCharArray(), newRole.toCharArray());
     }
 
     @Test

@@ -32,11 +32,8 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests()
-
                 .requestMatchers("/registration/**").anonymous()
-               // .requestMatchers("/message/**").authenticated()
-                .requestMatchers("/message/**", "/post/**", "/requests/**", "/user/**").authenticated() //hasRole("USER")
-
+                .requestMatchers("/message/**", "/post/**", "/requests/**", "/user/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -45,20 +42,6 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-
-//                .authorizeHttpRequests((authorizeHttpRequests) ->
-//                        authorizeHttpRequests
-//                                .requestMatchers("/message/**").hasAnyRole("USER", "ADMIN")
-//                                .requestMatchers("/user/**").hasRole("ADMIN")
-//                                .requestMatchers("/**").permitAll()
-//                                .anyRequest().authenticated())
-//                .sessionManagement(httpSecuritySessionManagementConfigurer ->
-//                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
-//                        httpSecurityExceptionHandlingConfigurer
-//                                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-//                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
