@@ -1,8 +1,8 @@
 package com.effectivemobile.socialmediaapi.security;
 
-import com.effectivemobile.socialmediaapi.exception.AppException;
 import com.effectivemobile.socialmediaapi.dto.JwtResponseDto;
 import com.effectivemobile.socialmediaapi.dto.UserRegRequestDto;
+import com.effectivemobile.socialmediaapi.exception.AppException;
 import com.effectivemobile.socialmediaapi.model.User;
 import com.effectivemobile.socialmediaapi.service.UserService;
 import com.effectivemobile.socialmediaapi.util.JwtTokenUtil;
@@ -29,7 +29,8 @@ public class AuthService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRegRequestDto.getUsername(),
                     userRegRequestDto.getPassword()));
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(new AppException("Incorrect login or password."), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new AppException("Incorrect login or password."),
+                    HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = securityUserService.loadUserByUsername(userRegRequestDto.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
@@ -40,7 +41,8 @@ public class AuthService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(new AppException("Incorrect login or password."), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new AppException("Incorrect login or password."),
+                    HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = securityUserService.loadUserByUsername(username);
         String token = jwtTokenUtil.generateToken(userDetails);

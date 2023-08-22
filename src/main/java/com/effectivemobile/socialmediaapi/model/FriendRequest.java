@@ -1,5 +1,6 @@
 package com.effectivemobile.socialmediaapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +24,10 @@ public class FriendRequest {
     private Instant createTime;
 
     @ManyToOne
+    @JsonIgnore
     private User sender;
 
     @ManyToOne
+    @JsonIgnore
     private User receiver;
 }

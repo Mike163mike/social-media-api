@@ -1,54 +1,60 @@
-create table friend_request (
-                                create_time timestamp(6) with time zone,
-                                id uuid not null,
-                                receiver_id uuid,
-                                sender_id uuid,
-                                primary key (id)
+create table friend_request
+(
+    create_time timestamp(6) with time zone,
+    id          uuid not null,
+    receiver_id uuid,
+    sender_id   uuid,
+    primary key (id)
 );
 
-create table message (
-                         read boolean not null,
-                         create_time timestamp(6) with time zone,
-                         edit_time timestamp(6) with time zone,
-                         id uuid not null,
-                         receiver_id uuid,
-                         sender_id uuid,
-                         message varchar(255),
-                         primary key (id)
+create table message
+(
+    read        boolean not null,
+    create_time timestamp(6) with time zone,
+    edit_time   timestamp(6) with time zone,
+    id          uuid    not null,
+    receiver_id uuid,
+    sender_id   uuid,
+    message     varchar(255),
+    primary key (id)
 );
 
-create table post (
-                      create_time timestamp(6) with time zone,
-                      edit_time timestamp(6) with time zone,
-                      id uuid not null,
-                      user_id uuid,
-                      image bytea,
-                      message varchar(255),
-                      title varchar(255),
-                      primary key (id)
+create table post
+(
+    create_time  timestamp(6) with time zone,
+    edit_time    timestamp(6) with time zone,
+    id           uuid not null,
+    publisher_id uuid,
+    message      varchar(255),
+    title        varchar(255),
+    image        bytea,
+    primary key (id)
 );
 
-create table role (
-                      id serial not null,
-                      name varchar(255),
-                      primary key (id)
+create table role
+(
+    id   serial not null,
+    name varchar(255),
+    primary key (id)
 );
 
-create table users (
-                       create_time timestamp(6) with time zone,
-                       edit_time timestamp(6) with time zone,
-                       id uuid not null,
-                       email varchar(255) unique,
-                       password varchar(255),
-                       username varchar(255) unique,
-                       follow text[],
-                       followers text[],
-                       primary key (id)
+create table users
+(
+    create_time timestamp(6) with time zone,
+    edit_time   timestamp(6) with time zone,
+    id          uuid not null,
+    email       varchar(255) unique,
+    password    varchar(255),
+    username    varchar(255) unique,
+    follow      uuid[],
+    followers   uuid[],
+    primary key (id)
 );
 
-create table users_roles (
-                             roles_id integer not null,
-                             user_id uuid not null
+create table users_roles
+(
+    roles_id integer not null unique,
+    user_id  uuid    not null
 );
 
 alter table if exists friend_request
@@ -72,8 +78,8 @@ alter table if exists message
             references users;
 
 alter table if exists post
-    add constraint FK7ky67sgi7k0ayf22652f7763r
-        foreign key (user_id)
+    add constraint FK3rx3gbgsxjjbhc05o1bcx9xfv
+        foreign key (publisher_id)
             references users;
 
 alter table if exists users_roles

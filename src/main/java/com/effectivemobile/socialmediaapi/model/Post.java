@@ -1,5 +1,6 @@
 package com.effectivemobile.socialmediaapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,12 +30,9 @@ public class Post {
 
     private String message;
 
-//    @Lob
-    //@Type(type = "org.hibernate.type.ImageType")
-//    @JsonIgnore
+    @JsonIgnore
     private byte[] image;
-//    private String image;
 
     @ManyToOne
-    private User user;
+    private User publisher;
 }

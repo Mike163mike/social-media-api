@@ -19,7 +19,7 @@ import java.util.UUID;
 @RestController
 @SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "User", description = "The User API. Contains operations with users in " +
-    "system.")
+        "system.")
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;

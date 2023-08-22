@@ -24,27 +24,24 @@ public class FriendRequestService {
         User sender = userRepository.findUserByUsername(securityContextService.getUserName());
         sender.getFollow().add(friendId);
         sender = userRepository.save(sender);
-
         User receiver = userRepository.findById(friendId)
-                .orElseThrow(() -> new AppException("User not found."));
+                .orElseThrow(() -> new AppException("User not found here."));
         receiver.getFollowers().add(sender.getId());
-
         receiver = userRepository.save(receiver);
         FriendRequest friendRequest = new FriendRequest();
         friendRequest.setSender(sender);
         friendRequest.setReceiver(receiver);
-
         return friendRequestRepository.save(friendRequest);
     }
 
     public List<FriendRequest> getOutRequests() {
         User sender = userRepository.findUserByUsername(securityContextService.getUserName());
-        return sender.getOutRequests();
+        return friendRequestRepository.findFriendRequestBySenderId(sender.getId());
     }
 
     public List<FriendRequest> getInRequests() {
         User sender = userRepository.findUserByUsername(securityContextService.getUserName());
-        return sender.getInRequests();
+        return friendRequestRepository.findFriendRequestByReceiverId(sender.getId());
     }
 
     public void acceptRequest(FriendRequest friendRequest) {
@@ -53,7 +50,7 @@ public class FriendRequestService {
 
     public void declineRequest(FriendRequest friendRequest) {
         User receiver = userRepository.findById(friendRequest.getReceiver().getId())
-                        .orElseThrow(() -> new AppException("User not found."));
+                .orElseThrow(() -> new AppException("User not found."));
         receiver.getFollowers().remove(friendRequest.getSender().getId());
         userRepository.save(receiver);
         friendRequestRepository.delete(friendRequest);

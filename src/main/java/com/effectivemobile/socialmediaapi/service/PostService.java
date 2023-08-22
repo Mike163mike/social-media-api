@@ -28,7 +28,7 @@ public class PostService {
 
     public Post savePost(Post post) {
         User publisher = userRepository.findUserByUsername(securityContextService.getUserName());
-        post.setUser(publisher);
+        post.setPublisher(publisher);
         return postRepository.save(post);
     }
 
@@ -39,7 +39,7 @@ public class PostService {
         postInRep.setTitle(post.getTitle());
         postInRep.setMessage(post.getMessage());
         postInRep.setImage(post.getImage());
-        postInRep.setUser(publisher);
+        postInRep.setPublisher(publisher);
         return postRepository.save(postInRep);
     }
 
@@ -48,7 +48,7 @@ public class PostService {
     }
 
     public Page<Post> findAllPostsByPublisherId(UUID id, Pageable pageable) {
-        return postRepository.findAllByUserId(id, pageable);
+        return postRepository.findAllByPublisherId(id, pageable);
     }
 
     public UUID getMyId() {
@@ -62,7 +62,7 @@ public class PostService {
         List<UUID> follows = me.getFollow();
         List<List<Post>> pageArrayList = new ArrayList<>();
         for (UUID uuid : follows) {
-            List<Post> oneUserPage = postRepository.findAllByUserId(uuid);
+            List<Post> oneUserPage = postRepository.findAllByPublisherId(uuid);
             pageArrayList.add(oneUserPage);
         }
         List<Post> postList = pageArrayList

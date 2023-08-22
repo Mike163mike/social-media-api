@@ -35,7 +35,7 @@ public class MessageController {
         MessageResponseDto newMessageResponseDto = messageResponseMapper.map(messageService
                 .saveMessage(messageRequestMapper
                         .map(messageRequestDto), id));
-        newMessageResponseDto.setSenderId(id);   //crutch
+//        newMessageResponseDto.setSenderId(id);   //crutch
         return ResponseEntity.ok(newMessageResponseDto);
     }
 
@@ -51,15 +51,18 @@ public class MessageController {
     @PostMapping
     @Operation(summary = "Get all messages from my friends (and automatically delete read and old messages).")
     public ResponseEntity<List<MessageResponseDto>> getAllMessagesFromMyFriends() {
-        List<Message> messages = messageService.getAllMessagesFromMyFriends();  //crutch
-        List<MessageResponseDto> allMessageResponseDtos = new ArrayList<>();
-        for (Message message:messages) {                                        //crutch
-            UUID senderId = message.getSender().getId();
-            MessageResponseDto messageResponseDto = messageResponseMapper.map(message);
-            messageResponseDto.setSenderId(senderId);
-            allMessageResponseDtos.add(messageResponseDto);
-        }
-        return ResponseEntity.ok(allMessageResponseDtos);
+        List<MessageResponseDto> messages = messageService.getAllMessagesFromMyFriends()
+                .stream()
+                .map(messageResponseMapper::map)
+                .toList();
+//        List<MessageResponseDto> allMessageResponseDtos = new ArrayList<>();
+//        for (Message message : messages) {                                        //crutch
+//            UUID senderId = message.getSender().getId();
+//            MessageResponseDto messageResponseDto = messageResponseMapper.map(message);
+//           messageResponseDto.setSenderId(senderId);
+//            allMessageResponseDtos.add(messageResponseDto);
+//        }
+        return ResponseEntity.ok(messages);
     }
 
     @GetMapping("/new/{user_id}")
@@ -68,9 +71,9 @@ public class MessageController {
         List<MessageResponseDto> newMessageResponseDtos = messageService.getNewMessagesFromMyFriend(user_id).stream()
                 .map(messageResponseMapper::map)
                 .toList();
-        for (MessageResponseDto messageDto : newMessageResponseDtos) {  //crutch
-            messageDto.setSenderId(user_id);
-        }
+//        for (MessageResponseDto messageDto : newMessageResponseDtos) {  //crutch
+//            messageDto.setSenderId(user_id);
+//        }
         return ResponseEntity.ok(newMessageResponseDtos);
     }
 
@@ -79,9 +82,9 @@ public class MessageController {
     public ResponseEntity<List<MessageResponseDto>> getAllMessagesFromMyFriendById(@PathVariable UUID user_id) {
         List<MessageResponseDto> messageResponseDtos = messageResponseMapper.toListToDto(messageService
                 .getAllMessagesFromSendersIds(user_id));
-        for (MessageResponseDto messageDto : messageResponseDtos) {  //crutch
-            messageDto.setSenderId(user_id);
-        }
+//        for (MessageResponseDto messageDto : messageResponseDtos) {  //crutch
+//            messageDto.setSenderId(user_id);
+//        }
         return ResponseEntity.ok(messageResponseDtos);
     }
 
@@ -92,7 +95,7 @@ public class MessageController {
         Message editedMessage = messageService.editMyMessageById(message_id, message); //crutch
         UUID senderId = editedMessage.getSender().getId();
         MessageResponseDto messageResponseDto = messageResponseMapper.map(editedMessage);
-        messageResponseDto.setSenderId(senderId);    //crutch
+//        messageResponseDto.setSenderId(senderId);    //crutch
         return ResponseEntity.ok(messageResponseDto);
     }
 

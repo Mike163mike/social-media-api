@@ -52,7 +52,7 @@ public class MessageService {
 
     public List<Message> getAllMessagesFromMyFriends() {
         User receiver = userRepository.findUserByUsername(securityContextService.getUserName());
-         List<Message> messages = messageRepository.getMessagesByReceiverId(receiver.getId());
+        List<Message> messages = messageRepository.getMessagesByReceiverId(receiver.getId());
         for (Message message : messages) {
             message.setRead(true);
             messageRepository.save(message);
@@ -127,8 +127,8 @@ public class MessageService {
     private boolean isFriends(User userOne, User userTwo) {
         List<UUID> userOneFollowers = userOne.getFollowers();
         List<UUID> userOneFollow = userOne.getFollow();
-        List<UUID> userTwoFollowers = userOne.getFollowers();
-        List<UUID> userTwoFollow = userOne.getFollow();
+        List<UUID> userTwoFollowers = userTwo.getFollowers();
+        List<UUID> userTwoFollow = userTwo.getFollow();
         boolean isFriend = false;
         for (UUID tempUUID1 : userOneFollowers) {
             for (UUID tempUUID2 : userTwoFollow) {

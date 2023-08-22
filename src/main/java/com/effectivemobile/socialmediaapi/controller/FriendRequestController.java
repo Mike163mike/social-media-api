@@ -35,21 +35,21 @@ public class FriendRequestController {
     @Operation(summary = "Get out requests.")
     @GetMapping("/out")
     private ResponseEntity<List<FriendRequestDto>> getOutRequests() {
-        List<FriendRequest> outRequests = friendRequestService.getOutRequests();
-        List<FriendRequestDto> list = outRequests.stream()
+        List<FriendRequestDto> outRequests = friendRequestService.getOutRequests()
+                .stream()
                 .map(friendRequestMapper::map)
                 .toList();
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(outRequests);
     }
 
     @Operation(summary = "Get in requests.")
     @GetMapping("/in")
     private ResponseEntity<List<FriendRequestDto>> getInRequests() {
-        List<FriendRequest> inRequests = friendRequestService.getInRequests();
-        List<FriendRequestDto> list = inRequests.stream()
+        List<FriendRequestDto> inRequests = friendRequestService.getInRequests()
+                .stream()
                 .map(friendRequestMapper::map)
                 .toList();
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(inRequests);
     }
 
     @Operation(summary = "Accept request.")
@@ -57,8 +57,8 @@ public class FriendRequestController {
     private ResponseEntity<?> acceptRequest(@PathVariable UUID id) {
         List<FriendRequest> inRequests = friendRequestService.getInRequests();
         FriendRequest request = inRequests.stream()
-                .filter(friendRequest -> friendRequest.getId().equals(id))
-                .findFirst().orElseThrow(() -> new AppException("User not found."));
+                .filter(friendRequest -> friendRequest.getSender().getId().equals(id))
+                .findFirst().orElseThrow(() -> new AppException("User not found. FriendRequestController."));
         friendRequestService.acceptRequest(request);
         return ResponseEntity.ok("Friends request from user with id = " + id + " was accepted.");
     }
@@ -68,8 +68,8 @@ public class FriendRequestController {
     private ResponseEntity<?> declineRequest(@PathVariable UUID id) {
         List<FriendRequest> inRequests = friendRequestService.getInRequests();
         FriendRequest request = inRequests.stream()
-                .filter(friendRequest -> friendRequest.getId().equals(id))
-                .findFirst().orElseThrow(() -> new AppException("User not found."));
+                .filter(friendRequest -> friendRequest.getSender().getId().equals(id))
+                .findFirst().orElseThrow(() -> new AppException("User not found. FriendRequestController"));
         friendRequestService.declineRequest(request);
         return ResponseEntity.ok("Friends request from user with id = " + id + " was declined.");
     }

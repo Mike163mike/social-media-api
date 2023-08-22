@@ -47,7 +47,7 @@ public class User {
     private String password;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "publisher_id")
     private List<Post> posts;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
@@ -58,11 +58,11 @@ public class User {
     @JoinColumn(name = "sender_id")
     private List<Message> messagesOut;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "receiver_id")
     private List<FriendRequest> inRequests;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "sender_id")
     private List<FriendRequest> outRequests;
     @Type(ListArrayType.class)

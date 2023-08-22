@@ -1,15 +1,18 @@
 package com.effectivemobile.socialmediaapi.dto;
 
+import com.effectivemobile.socialmediaapi.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
+import java.time.Instant;
 
 @Getter
 @Setter
 public class FriendRequestDto {
 
-    private UUID requestId;
-    private UUID friendId;
-    private String friendName;
+    private Instant createTime;
+
+    private User sender;
+
+    private User receiver;
 }
