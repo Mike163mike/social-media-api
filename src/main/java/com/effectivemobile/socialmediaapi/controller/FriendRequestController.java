@@ -3,10 +3,8 @@ package com.effectivemobile.socialmediaapi.controller;
 import com.effectivemobile.socialmediaapi.dto.FriendRequestDto;
 import com.effectivemobile.socialmediaapi.exception.AppException;
 import com.effectivemobile.socialmediaapi.mapper.FriendRequestMapper;
-import com.effectivemobile.socialmediaapi.mapper.UserResponseMapper;
 import com.effectivemobile.socialmediaapi.model.FriendRequest;
 import com.effectivemobile.socialmediaapi.service.FriendRequestService;
-import com.effectivemobile.socialmediaapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/requests")
+@RequestMapping("/request")
 @RestController
 @SecurityRequirement(name = "Bearer Authentication")
 @Tag(name = "Friends request", description = "The FriendRequest API. Contains operations with sending and receiving requests" +

@@ -20,7 +20,8 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("Social Media Api")
                         .version("1.0.0")
-                        .description("Social media platform. App for safe create, edit and delete messages. For free communication.")
+                        .description("Social media platform. App for safe create, edit and delete posts, make friends, " +
+                                "send and receive messages from them. For free communication.")
                         .contact(
                                 new Contact()
                                         .email("mick_mick_mick@icloud.com")
