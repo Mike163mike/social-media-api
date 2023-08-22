@@ -3,7 +3,6 @@ package com.effectivemobile.socialmediaapi.service;
 import com.effectivemobile.socialmediaapi.exception.AppException;
 import com.effectivemobile.socialmediaapi.model.Role;
 import com.effectivemobile.socialmediaapi.model.User;
-import com.effectivemobile.socialmediaapi.repository.RoleRepository;
 import com.effectivemobile.socialmediaapi.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,7 +13,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,20 +20,19 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RoleRepository roleRepository;
+    private final List<String> STRING_ROLES = List.of("ROLE_USER");
+
 
     public void createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreateTime(Instant.now());
-        user.setEditTime(Instant.now());
-        user.setRoles(mapStringToRole(List.of("ROLE_USER")));
+        user.setRoles(getRoles(List.of("ROLE_USER")));
         userRepository.save(user);
     }
 
     public User editUserRoles(String username, List<String> roles) {
         User user = userRepository.findUserByUsername(username);
         if (checkList(roles)) {
-            user.setRoles(mapStringToRole(roles));
+            user.setRoles(getRoles(roles));
         } else {
             throw new AppException("Incorrect name of role.");
         }
@@ -62,36 +59,14 @@ public class UserService {
         return userRepository.deleteUserByUsername(username);
     }
 
-    public List<Role> mapStringToRole(List<String> strings) {
-        return getRoles(strings);
-    }
-
-    private boolean checkString(String string, List<String> roles) {
-        boolean flag = false;
-        for (String tempRole : roles) {
-            if (string.equalsIgnoreCase(tempRole)) {
-                flag = true;
-                break;
-            }
-        }
-        return flag;
-    }
-
     private boolean checkList(List<String> roles) {
-        List<String> stringList = new ArrayList<>();
-        List<String> constRoles = roleRepository.findAll().stream()
-                .map(Role::getName)
-                .distinct()
-                .collect(Collectors.toList());
-        for (String tempStr : roles) {
-            if (checkString(tempStr, constRoles)) {
-                stringList.add(tempStr);
-            }
-        }
-        return roles.equals(stringList);
+        List<String> newRoles = roles.stream()
+                .map(String::toUpperCase)
+                .toList();
+        return STRING_ROLES.containsAll(newRoles);
     }
 
-    private List<Role> getRoles(List<String> strings) {
+    List<Role> getRoles(List<String> strings) {
         List<Role> newRoles = new ArrayList<>();
         for (String tempStr : strings) {
             Role newRole = new Role();

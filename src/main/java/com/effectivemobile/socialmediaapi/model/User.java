@@ -65,18 +65,16 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id")
     private List<FriendRequest> outRequests;
-
     @Type(ListArrayType.class)
     @Column(
-        name = "followers",
-        columnDefinition = " uuid[]"
+            name = "followers",
+            columnDefinition = " uuid[]"
     )
     private List<UUID> followers = new ArrayList<>();
-
     @Type(ListArrayType.class)
     @Column(
-        name = "follow",
-        columnDefinition = "uuid[]"
+            name = "follow",
+            columnDefinition = "uuid[]"
     )
     private List<UUID> follow = new ArrayList<>();
 }

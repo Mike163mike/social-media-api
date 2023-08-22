@@ -1,41 +1,101 @@
--- INSERT INTO users (id, create_time, edit_time, email, username, password, follow, followers)
--- VALUES ('a074aa9d-0b51-4769-9225-16498ead172e',
---         now(),
---         now(),
---         'some_data@google.com',
---         'BenderTheBest',
---         '$2a$12$t.5dt8.zkHTOIBzTlQTJj.fi2nFq8dXXLQAroU.ooD82xC5.63GMG',
---         '{de98d1f9-5184-45fb-9d92-ad2c917576b7}',
---         '{de98d1f9-5184-45fb-9d92-ad2c917576b7}'),
---        ('de98d1f9-5184-45fb-9d92-ad2c917576b7',
---         now(),
---         now(),
---         'second_data@gmail.com',
---         'Mike',
---         '$2a$12$t.5dt8.zkHTOIBzTlQTJj.fi2nFq8dXXLQAroU.ooD82xC5.63GMG',
---         '{a074aa9d-0b51-4769-9225-16498ead172e}',
---         '{a074aa9d-0b51-4769-9225-16498ead172e}');
---
--- INSERT INTO role (name)
--- VALUES ('ROLE_ADMIN'),
---        ('ROLE_USER');
---
--- INSERT INTO message (id, create_time, edit_time, title, message, image, user_id)
--- VALUES ('21da7693-73a9-4ede-a62e-e17359cbaa33',
---         now(),
---         now(),
---         'Greeting!',
---         'Test message #1 from Bender.',
---         'http\\:test.image',
---        'a074aa9d-0b51-4769-9225-16498ead172e'),
---        ('3cc425ad-4620-4ad1-8f74-2d881eb4f104',
---         now(),
---         now(),
---         'Greeting too!',
---         'Test message #2 from Tyson.',
---         'http\\:test1.image',
---         'de98d1f9-5184-45fb-9d92-ad2c917576b7');
---
--- INSERT INTO users_roles (user_id, roles_id)
--- VALUES ('a074aa9d-0b51-4769-9225-16498ead172e', 1),
---        ('de98d1f9-5184-45fb-9d92-ad2c917576b7', 2);
+insert into users (id, create_time, edit_time,  email, username, password, follow, followers)
+values ('a074aa9d-0b51-4769-9225-16498ead172e',
+        now(),
+        now(),
+        'some_data1@google.com',
+        'Bender',
+        '$2a$12$t.5dt8.zkHTOIBzTlQTJj.fi2nFq8dXXLQAroU.ooD82xC5.63GMG',
+        '{de98d1f9-5184-45fb-9d92-ad2c917576b7}',
+        '{592de03c-a13e-46dd-b2cc-49548b080733, c5e0372a-a085-45a0-941d-46b4636c849b}'),
+       ('de98d1f9-5184-45fb-9d92-ad2c917576b7',
+        now(),
+        now(),
+        'some_data2@gmail.com',
+        'Fry',
+        '$2a$12$t.5dt8.zkHTOIBzTlQTJj.fi2nFq8dXXLQAroU.ooD82xC5.63GMG',
+        '{a074aa9d-0b51-4769-9225-16498ead172e}',
+        '{592de03c-a13e-46dd-b2cc-49548b080733, c5e0372a-a085-45a0-941d-46b4636c849b}'),
+       ('592de03c-a13e-46dd-b2cc-49548b080733',
+        now(),
+        now(),
+        'some_data3@gmail.com',
+        'Farnsworth',
+        '$2a$12$t.5dt8.zkHTOIBzTlQTJj.fi2nFq8dXXLQAroU.ooD82xC5.63GMG',
+        '{a074aa9d-0b51-4769-9225-16498ead172e}',
+        '{a074aa9d-0b51-4769-9225-16498ead172e}'),
+       ('c5e0372a-a085-45a0-941d-46b4636c849b',
+        now(),
+        now(),
+        'some_data4@gmail.com',
+        'Lila',
+        '$2a$12$t.5dt8.zkHTOIBzTlQTJj.fi2nFq8dXXLQAroU.ooD82xC5.63GMG',
+        '{a074aa9d-0b51-4769-9225-16498ead172e}',
+        '{a074aa9d-0b51-4769-9225-16498ead172e}');
+
+insert into role (name)
+values ('ROLE_USER'),
+       ('ROLE_ADMIN');
+
+insert into message (id, read, create_time, edit_time, message, sender_id, receiver_id)
+values ('21da7693-73a9-4ede-a62e-e17359cbaa33',
+        true,
+        now(),
+        now(),
+        'Greeting! I am Bender!',
+        'a074aa9d-0b51-4769-9225-16498ead172e',
+        'c5e0372a-a085-45a0-941d-46b4636c849b'),
+       ('3cc425ad-4620-4ad1-8f74-2d881eb4f104',
+        true,
+        now(),
+        now(),
+        'Greeting too! I am Lila.',
+        'c5e0372a-a085-45a0-941d-46b4636c849b',
+        'a074aa9d-0b51-4769-9225-16498ead172e'),
+       ('ee86c629-7719-49a7-8c92-d1aa407e53b5',
+        true,
+        now(),
+        now(),
+        'Greeting! I am Bender! Hello Fry! do you there?',
+        'a074aa9d-0b51-4769-9225-16498ead172e',
+        'de98d1f9-5184-45fb-9d92-ad2c917576b7'),
+       ('c7e80fc0-94ba-436b-a4a6-e5ed67acf479',
+        false,
+        now(),
+        now(),
+        'Yes i am.!',
+        'de98d1f9-5184-45fb-9d92-ad2c917576b7',
+        'a074aa9d-0b51-4769-9225-16498ead172e');
+
+insert into users_roles (user_id, roles_id)
+values ('a074aa9d-0b51-4769-9225-16498ead172e', 1),
+       ('de98d1f9-5184-45fb-9d92-ad2c917576b7', 1),
+       ('592de03c-a13e-46dd-b2cc-49548b080733', 1),
+       ('c5e0372a-a085-45a0-941d-46b4636c849b', 1);
+
+insert into post (id, create_time, edit_time, title, message, image, user_id)
+values ('3d271cea-536c-4213-982b-89a9e461779a',
+        now(),
+        now(),
+        'My photo',
+        'Whats the beauty! Bender the best!!!',
+        '\x013d7d16d7ad4fefb61bd95b765c8ceb'::bytea,
+        'a074aa9d-0b51-4769-9225-16498ead172e'
+       ),
+       ('a527d2fb-b356-4cd0-9aad-dfd438e716cc',
+        now(),
+        now(),
+        'Ugly guy.',
+        'Not my photo.',
+        '\x013c5d16d3ad4fafb61bd95b765c8ceb'::bytea,
+        'a074aa9d-0b51-4769-9225-16498ead172e'
+       );
+
+insert into friend_request (id, create_time, sender_id, receiver_id)
+values ('2c91cc14-73df-4eba-b4e6-ea862f744189',
+        now(),
+        'a074aa9d-0b51-4769-9225-16498ead172e',
+        'c5e0372a-a085-45a0-941d-46b4636c849b'),
+       ('47a00149-2bf7-40f6-a350-d0dace20ac2f',
+        now(),
+        'c5e0372a-a085-45a0-941d-46b4636c849b',
+        'c5e0372a-a085-45a0-941d-46b4636c849b');

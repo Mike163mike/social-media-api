@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 import java.util.List;
 
 class UserServiceTest extends AbstractTest {
@@ -29,20 +28,5 @@ class UserServiceTest extends AbstractTest {
             .findFirst()
             .orElseThrow();
         Assertions.assertArrayEquals("ROLE_USER".toCharArray(), newRole.toCharArray());
-    }
-
-    @Test
-    void mapStringToRole() {
-        List<String> stringList = Arrays.asList("ADMIN", "USER");
-        String[] strings = stringList.toArray(new String[0]);
-        Role roleA = new Role();
-        Role roleU = new Role();
-        roleA.setName("USER");
-        roleU.setName("USER");
-        List<Role> results = userService.mapStringToRole(stringList);
-        Role[] rolesArray = results.toArray(new Role[0]);
-        String[] rolesAsString = Arrays.stream(rolesArray)
-            .map(Role::getName).toArray(String[]::new);
-        Assertions.assertArrayEquals(strings, rolesAsString);
     }
 }

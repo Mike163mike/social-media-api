@@ -32,8 +32,8 @@ public class Post {
 //    @Lob
     //@Type(type = "org.hibernate.type.ImageType")
 //    @JsonIgnore
-//    private byte[] image;
-    private String image;
+    private byte[] image;
+//    private String image;
 
     @ManyToOne
     private User user;

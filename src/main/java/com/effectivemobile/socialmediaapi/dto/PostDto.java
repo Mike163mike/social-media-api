@@ -13,8 +13,8 @@ public class PostDto {
 
     private String message;
 
-//    private byte[] image;
-    private String image;
+    private byte[] image;
+//    private String image;
 
     private UUID publisherId;
 }

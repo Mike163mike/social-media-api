@@ -22,7 +22,7 @@ create table post (
                       edit_time timestamp(6) with time zone,
                       id uuid not null,
                       user_id uuid,
-                      image text,
+                      image bytea,
                       message varchar(255),
                       title varchar(255),
                       primary key (id)
@@ -41,13 +41,13 @@ create table users (
                        email varchar(255) unique,
                        password varchar(255),
                        username varchar(255) unique,
-                       follow uuid[],
-                       followers uuid[],
+                       follow text[],
+                       followers text[],
                        primary key (id)
 );
 
 create table users_roles (
-                             roles_id integer not null unique,
+                             roles_id integer not null,
                              user_id uuid not null
 );
 
