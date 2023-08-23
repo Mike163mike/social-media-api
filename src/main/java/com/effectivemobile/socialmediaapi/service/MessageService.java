@@ -102,8 +102,8 @@ public class MessageService {
     public void deleteMyMessageById(UUID messageId) {
         User receiver = userRepository.findUserByUsername(securityContextService.getUserName());
         Message message = messageRepository.findById(messageId)
-                        .orElseThrow(() -> new AppException("Message with id = " + messageId + " not found. Source: " +
-                                "MessageService."));
+                .orElseThrow(() -> new AppException("Message with id = " + messageId + " not found. Source: " +
+                        "MessageService."));
         receiver.getMessagesOut().remove(message);
         userRepository.save(receiver);
         messageRepository.deleteById(messageId);

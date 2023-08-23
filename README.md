@@ -1,6 +1,11 @@
 ## Web application "Social Media API"
 
-RESTful API - приложение "Social Media API" на фреймворке Spring boot. 
+RESTful API - приложение "Social Media API" на фреймворке Spring boot.    
+
+
+For starting application Docker demon should be run on the host.     
+
+password: 100  (by all users from test data)
 
 ### Использованные в проекте нструменты и технологии:
 

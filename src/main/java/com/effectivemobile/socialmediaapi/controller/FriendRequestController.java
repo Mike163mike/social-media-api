@@ -32,25 +32,25 @@ public class FriendRequestController {
         return ResponseEntity.ok(friendRequestService.addFriend(id));
     }
 
-//    @Operation(summary = "Get out requests.")
-//    @GetMapping("/out")
-//    private ResponseEntity<List<FriendRequestDto>> getOutRequests() {
-//        List<FriendRequestDto> outRequests = friendRequestService.getOutRequests()
-//                .stream()
-//                .map(friendRequestMapper::map)
-//                .toList();
-//        return ResponseEntity.ok(outRequests);
-//    }
+    @Operation(summary = "Get out requests.")
+    @GetMapping("/out")
+    private ResponseEntity<List<FriendRequestDto>> getOutRequests() {
+        List<FriendRequestDto> outRequests = friendRequestService.getOutRequests()
+                .stream()
+                .map(friendRequestMapper::map)
+                .toList();
+        return ResponseEntity.ok(outRequests);
+    }
 
-//    @Operation(summary = "Get in requests.")
-//    @GetMapping("/in")
-//    private ResponseEntity<List<FriendRequestDto>> getInRequests() {
-//        List<FriendRequestDto> inRequests = friendRequestService.getInRequests()
-//                .stream()
-//                .map(friendRequestMapper::map)
-//                .toList();
-//        return ResponseEntity.ok(inRequests);
-//    }
+    @Operation(summary = "Get in requests.")
+    @GetMapping("/in")
+    private ResponseEntity<List<FriendRequestDto>> getInRequests() {
+        List<FriendRequestDto> inRequests = friendRequestService.getInRequests()
+                .stream()
+                .map(friendRequestMapper::map)
+                .toList();
+        return ResponseEntity.ok(inRequests);
+    }
 
     @Operation(summary = "Accept request by its id.")
     @PostMapping("/friend-request/{id}/accept")

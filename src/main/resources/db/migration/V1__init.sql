@@ -53,7 +53,7 @@ create table users
 
 create table users_roles
 (
-    roles_id integer not null unique,
+    roles_id integer not null,
     user_id  uuid    not null
 );
 

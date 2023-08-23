@@ -45,12 +45,6 @@ public class FriendRequestService {
         return friendRequestRepository.findAllByReceiverId(sender.getId());
     }
 
-//    public FriendRequest getInRequests(UUID id) {
-//        User sender = userRepository.findUserByUsername(securityContextService.getUserName());
-//        return friendRequestRepository.findFriendRequestByReceiverId(sender.getId());
-////        return friendRequestRepository.findFriendRequestById(id);
-//    }
-
     public void acceptRequest(FriendRequest friendRequest) {
         friendRequestRepository.delete(friendRequest);
     }
