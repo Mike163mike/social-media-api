@@ -25,7 +25,8 @@ public class FriendRequestService {
         sender.getFollow().add(friendId);
         sender = userRepository.save(sender);
         User receiver = userRepository.findById(friendId)
-                .orElseThrow(() -> new AppException("User not found here."));
+                .orElseThrow(() -> new AppException("User not found here.Source: ",
+                        this.getClass().getSimpleName() + "."));
         receiver.getFollowers().add(sender.getId());
         receiver = userRepository.save(receiver);
         FriendRequest friendRequest = new FriendRequest();
@@ -50,7 +51,8 @@ public class FriendRequestService {
 
     public void declineRequest(FriendRequest friendRequest) {
         User receiver = userRepository.findById(friendRequest.getReceiver().getId())
-                .orElseThrow(() -> new AppException("User not found."));
+                .orElseThrow(() -> new AppException("User not found.Source: ",
+                        this.getClass().getSimpleName() + "."));
         receiver.getFollowers().remove(friendRequest.getSender().getId());
         userRepository.save(receiver);
         friendRequestRepository.delete(friendRequest);

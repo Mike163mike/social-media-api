@@ -58,7 +58,8 @@ public class FriendRequestController {
         List<FriendRequest> inRequests = friendRequestService.getInRequests();
         FriendRequest request = inRequests.stream()
                 .filter(friendRequest -> friendRequest.getSender().getId().equals(id))
-                .findFirst().orElseThrow(() -> new AppException("User not found. FriendRequestController."));
+                .findFirst().orElseThrow(() -> new AppException("User not found.Source: ",
+                        this.getClass().getSimpleName() + "."));
         friendRequestService.acceptRequest(request);
         return ResponseEntity.ok("Friends request from user with id = " + id + " was accepted.");
     }
@@ -69,7 +70,8 @@ public class FriendRequestController {
         List<FriendRequest> inRequests = friendRequestService.getInRequests();
         FriendRequest request = inRequests.stream()
                 .filter(friendRequest -> friendRequest.getSender().getId().equals(id))
-                .findFirst().orElseThrow(() -> new AppException("User not found. FriendRequestController"));
+                .findFirst().orElseThrow(() -> new AppException("User not found. Source: ",
+                        this.getClass().getSimpleName() + "."));
         friendRequestService.declineRequest(request);
         return ResponseEntity.ok("Friends request from user with id = " + id + " was declined.");
     }

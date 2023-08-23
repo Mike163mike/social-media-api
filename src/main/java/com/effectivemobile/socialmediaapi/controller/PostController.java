@@ -30,10 +30,8 @@ public class PostController {
     @PostMapping
     @Operation(summary = "Create new post")
     public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
-     //   UUID publisherId = postService.getMyId();  //crutch
         PostDto newPostDto = postMapper.map(postService
                 .savePost(postMapper.map(postDto)));
-  //      newPostDto.setPublisherId(publisherId); //crutch
         return ResponseEntity.ok(newPostDto);
     }
 
@@ -41,10 +39,8 @@ public class PostController {
     @Operation(summary = "Edit my post")
     public ResponseEntity<PostDto> editPostById(@PathVariable UUID post_id,
                                                 @RequestBody PostDto postDto) {
-  //      UUID publisherId = postService.getMyId();  //crutch
         PostDto newPostDto = postMapper.map(
                 postService.editPostById(post_id, postMapper.map(postDto)));
- //       newPostDto.setPublisherId(publisherId); //crutch
         return ResponseEntity.ok(newPostDto);
     }
 
@@ -76,7 +72,7 @@ public class PostController {
     @GetMapping("/page")
     @Operation(summary = "Get pages of all users posts i am follow .")
     public ResponseEntity<Page<Post>> getCustomers(@RequestParam(defaultValue = "0") int page,
-                                                       @RequestParam(defaultValue = "10") int size) {
+                                                   @RequestParam(defaultValue = "10") int size) {
 
         Page<Post> customerPage = postService.getAllPosts(page, size);
         HttpHeaders headers = new HttpHeaders();

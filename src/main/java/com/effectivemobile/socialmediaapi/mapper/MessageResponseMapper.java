@@ -2,11 +2,9 @@ package com.effectivemobile.socialmediaapi.mapper;
 
 import com.effectivemobile.socialmediaapi.dto.MessageResponseDto;
 import com.effectivemobile.socialmediaapi.model.Message;
-import com.effectivemobile.socialmediaapi.model.User;
 import org.mapstruct.Mapper;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Mapper

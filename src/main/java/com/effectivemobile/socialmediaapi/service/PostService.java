@@ -35,7 +35,8 @@ public class PostService {
     public Post editPostById(UUID id, Post post) {
         User publisher = userRepository.findUserByUsername(securityContextService.getUserName());
         Post postInRep = postRepository.findById(id)
-                .orElseThrow(() -> new AppException("Post with id = " + id + " not found."));
+                .orElseThrow(() -> new AppException("Post with id = " + id + " not found.Source: ",
+                        this.getClass().getSimpleName() + "."));
         postInRep.setTitle(post.getTitle());
         postInRep.setMessage(post.getMessage());
         postInRep.setImage(post.getImage());
@@ -58,7 +59,8 @@ public class PostService {
 
     public Page<Post> getAllPosts(int page, int size) {
         User me = userRepository.findById(getMyId())
-                .orElseThrow(() -> new AppException("User with id = " + getMyId() + " not found."));
+                .orElseThrow(() -> new AppException("User with id = " + getMyId() + " not found.Source: ",
+                        this.getClass().getSimpleName() + "."));
         List<UUID> follows = me.getFollow();
         List<List<Post>> pageArrayList = new ArrayList<>();
         for (UUID uuid : follows) {

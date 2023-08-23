@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +34,6 @@ public class MessageController {
         MessageResponseDto newMessageResponseDto = messageResponseMapper.map(messageService
                 .saveMessage(messageRequestMapper
                         .map(messageRequestDto), id));
-//        newMessageResponseDto.setSenderId(id);   //crutch
         return ResponseEntity.ok(newMessageResponseDto);
     }
 
@@ -55,13 +53,6 @@ public class MessageController {
                 .stream()
                 .map(messageResponseMapper::map)
                 .toList();
-//        List<MessageResponseDto> allMessageResponseDtos = new ArrayList<>();
-//        for (Message message : messages) {                                        //crutch
-//            UUID senderId = message.getSender().getId();
-//            MessageResponseDto messageResponseDto = messageResponseMapper.map(message);
-//           messageResponseDto.setSenderId(senderId);
-//            allMessageResponseDtos.add(messageResponseDto);
-//        }
         return ResponseEntity.ok(messages);
     }
 
@@ -71,9 +62,6 @@ public class MessageController {
         List<MessageResponseDto> newMessageResponseDtos = messageService.getNewMessagesFromMyFriend(user_id).stream()
                 .map(messageResponseMapper::map)
                 .toList();
-//        for (MessageResponseDto messageDto : newMessageResponseDtos) {  //crutch
-//            messageDto.setSenderId(user_id);
-//        }
         return ResponseEntity.ok(newMessageResponseDtos);
     }
 
@@ -82,9 +70,6 @@ public class MessageController {
     public ResponseEntity<List<MessageResponseDto>> getAllMessagesFromMyFriendById(@PathVariable UUID user_id) {
         List<MessageResponseDto> messageResponseDtos = messageResponseMapper.toListToDto(messageService
                 .getAllMessagesFromSendersIds(user_id));
-//        for (MessageResponseDto messageDto : messageResponseDtos) {  //crutch
-//            messageDto.setSenderId(user_id);
-//        }
         return ResponseEntity.ok(messageResponseDtos);
     }
 
@@ -93,9 +78,7 @@ public class MessageController {
     public ResponseEntity<MessageResponseDto> editMyMessageById(@PathVariable UUID message_id,
                                                                 @RequestBody String message) {
         Message editedMessage = messageService.editMyMessageById(message_id, message); //crutch
-        UUID senderId = editedMessage.getSender().getId();
         MessageResponseDto messageResponseDto = messageResponseMapper.map(editedMessage);
-//        messageResponseDto.setSenderId(senderId);    //crutch
         return ResponseEntity.ok(messageResponseDto);
     }
 

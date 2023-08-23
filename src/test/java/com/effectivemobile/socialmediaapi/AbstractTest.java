@@ -33,8 +33,8 @@ abstract public class AbstractTest {
     protected EntityManager entityManager;
 
     protected static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>(
-        DockerImageName.parse("postgres:15.3")
-            .asCompatibleSubstituteFor("postgres"));
+            DockerImageName.parse("postgres:15.3")
+                    .asCompatibleSubstituteFor("postgres"));
 
     @DynamicPropertySource
     static void postgresProperties(DynamicPropertyRegistry registry) {

@@ -25,14 +25,16 @@ public class MessageService {
 
     public Message saveMessage(Message message, UUID userId) {
         User sender = userRepository.findUserByUsername(securityContextService.getUserName());
-        User receiver = userRepository.findById(userId).orElseThrow(() -> new AppException("User with id = "
-                + userId + " not found."));
+        User receiver = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException("User with id = " + userId + " not found.Source: ",
+                        this.getClass().getSimpleName() + "."));
         if (isFriends(sender, receiver)) {
             message.setReceiver(receiver);
             message.setSender(sender);
             return messageRepository.save(message);
         } else {
-            throw new AppException("User with id = " + userId + " is not your friend. Sending the message impossible.");
+            throw new AppException("User with id = " + userId + " is not your friend. Sending the message impossible.Source: ",
+                    this.getClass().getSimpleName() + ".");
         }
     }
 
@@ -64,7 +66,8 @@ public class MessageService {
         User receiver = userRepository.findUserByUsername(securityContextService.getUserName());
         List<Message> messages = new ArrayList<>();
         User sender = userRepository.findById(senderId)
-                .orElseThrow(() -> new AppException("User with id = " + senderId + " not found."));
+                .orElseThrow(() -> new AppException("User with id = " + senderId + " not found.Source: ",
+                        this.getClass().getSimpleName() + "."));
         if (isFriends(receiver, sender)) {
             messages = messageRepository.getMessagesBySenderId(senderId).stream()
                     .filter(message -> message.getReceiver().getId().equals(receiver.getId()))
@@ -81,7 +84,8 @@ public class MessageService {
         User receiver = userRepository.findUserByUsername(securityContextService.getUserName());
         List<Message> messages = new ArrayList<>();
         User sender = userRepository.findById(userId)
-                .orElseThrow(() -> new AppException("User with id = " + userId + " not found."));
+                .orElseThrow(() -> new AppException("User with id = " + userId + " not found.Source: ",
+                        this.getClass().getSimpleName() + "."));
         if (isFriends(receiver, sender)) {
             messages = messageRepository.getMessagesBySenderId(userId).stream()
                     .filter(message -> message.getReceiver().getId().equals(receiver.getId()))
@@ -117,7 +121,8 @@ public class MessageService {
     public Message editMyMessageById(UUID messageId, String newMessage) {
         User sender = userRepository.findUserByUsername(securityContextService.getUserName());
         Message message = messageRepository.findById(messageId)
-                .orElseThrow(() -> new AppException("Message with id = " + messageId + " not found."));
+                .orElseThrow(() -> new AppException("Message with id = " + messageId + " not found.Source: ",
+                        this.getClass().getSimpleName() + "."));
         message.setMessage(newMessage);
         message.setSender(sender);
         messageRepository.save(message);

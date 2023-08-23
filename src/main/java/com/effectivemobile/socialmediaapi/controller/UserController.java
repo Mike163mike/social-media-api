@@ -3,7 +3,6 @@ package com.effectivemobile.socialmediaapi.controller;
 import com.effectivemobile.socialmediaapi.dto.UserResponseDto;
 import com.effectivemobile.socialmediaapi.exception.AppException;
 import com.effectivemobile.socialmediaapi.mapper.UserResponseMapper;
-import com.effectivemobile.socialmediaapi.service.FriendRequestService;
 import com.effectivemobile.socialmediaapi.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -23,7 +22,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final FriendRequestService friendRequestService;
     private final UserResponseMapper userResponseMapper;
 
     @Operation(summary = "Set new list of roles for earlier created users.")
@@ -51,6 +49,7 @@ public class UserController {
         if (userService.deleteUser(username) == 1) {
             return ResponseEntity.ok(String.format("User %s was deleted successfully.", username));
         }
-        return ResponseEntity.badRequest().body(new AppException("Something went wrong. Try again."));
+        return ResponseEntity.badRequest().body(new AppException("Something went wrong. Try again.Source: ",
+                this.getClass().getSimpleName() + "."));
     }
 }
