@@ -29,8 +29,8 @@ public class AuthService {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRegRequestDto.getUsername(),
                     userRegRequestDto.getPassword()));
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(new AppException("Incorrect login or password. Source: ",
-                    this.getClass().getSimpleName() + "."),
+            return new ResponseEntity<>(new AppException("Incorrect login or password. Source: " +
+                    "AuthService."),
                     HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = securityUserService.loadUserByUsername(userRegRequestDto.getUsername());
@@ -42,8 +42,8 @@ public class AuthService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(new AppException("Incorrect login or password.Source: ",
-                    this.getClass().getSimpleName() + "."),
+            return new ResponseEntity<>(new AppException("Incorrect login or password.Source: " +
+                    "AuthService."),
                     HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = securityUserService.loadUserByUsername(username);
@@ -54,8 +54,8 @@ public class AuthService {
     public ResponseEntity<?> createUser(UserRegRequestDto userRegRequestDto) {
         if (userService.getUserByUsername(userRegRequestDto.getUsername()) != null) {
             return ResponseEntity.badRequest().body(new AppException("User with username = " +
-                    userRegRequestDto.getUsername() + "is registered in system  already. Source: ",
-                    this.getClass().getSimpleName() + "."));
+                    userRegRequestDto.getUsername() + "is registered in system  already. Source: " +
+                    "AuthService."));
         }
         User user = new User();
         user.setUsername(userRegRequestDto.getUsername());

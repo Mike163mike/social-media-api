@@ -34,8 +34,8 @@ public class UserService {
         if (checkList(roles)) {
             user.setRoles(getRoles(roles));
         } else {
-            throw new AppException("Incorrect name of role.Source: ",
-                    this.getClass().getSimpleName() + ".");
+            throw new AppException("Incorrect name of role.Source: " +
+                    "UserService.");
         }
         user.setEditTime(Instant.now());
         userRepository.save(user);    //These two steps do-

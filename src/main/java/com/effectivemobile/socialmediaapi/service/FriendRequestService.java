@@ -25,8 +25,8 @@ public class FriendRequestService {
         sender.getFollow().add(friendId);
         sender = userRepository.save(sender);
         User receiver = userRepository.findById(friendId)
-                .orElseThrow(() -> new AppException("User not found here.Source: ",
-                        this.getClass().getSimpleName() + "."));
+                .orElseThrow(() -> new AppException("User not found here. Source: " +
+                        "FriendRequestController."));
         receiver.getFollowers().add(sender.getId());
         receiver = userRepository.save(receiver);
         FriendRequest friendRequest = new FriendRequest();
@@ -37,23 +37,32 @@ public class FriendRequestService {
 
     public List<FriendRequest> getOutRequests() {
         User sender = userRepository.findUserByUsername(securityContextService.getUserName());
-        return friendRequestRepository.findFriendRequestBySenderId(sender.getId());
+        return friendRequestRepository.findAllBySenderId(sender.getId());
     }
 
     public List<FriendRequest> getInRequests() {
         User sender = userRepository.findUserByUsername(securityContextService.getUserName());
-        return friendRequestRepository.findFriendRequestByReceiverId(sender.getId());
+        return friendRequestRepository.findAllByReceiverId(sender.getId());
     }
+
+//    public FriendRequest getInRequests(UUID id) {
+//        User sender = userRepository.findUserByUsername(securityContextService.getUserName());
+//        return friendRequestRepository.findFriendRequestByReceiverId(sender.getId());
+////        return friendRequestRepository.findFriendRequestById(id);
+//    }
 
     public void acceptRequest(FriendRequest friendRequest) {
         friendRequestRepository.delete(friendRequest);
     }
 
     public void declineRequest(FriendRequest friendRequest) {
-        User receiver = userRepository.findById(friendRequest.getReceiver().getId())
-                .orElseThrow(() -> new AppException("User not found.Source: ",
-                        this.getClass().getSimpleName() + "."));
-        receiver.getFollowers().remove(friendRequest.getSender().getId());
+        User receiver = userRepository.findUserByUsername(securityContextService.getUserName());
+        User sender = userRepository.findById(friendRequest.getReceiver().getId())
+                .orElseThrow(() -> new AppException("User not found. Source: " +
+                        "FriendRequestController."));
+        sender.getFollowers().remove(sender.getId());
+        receiver.getFollow().remove(receiver.getId());
+        userRepository.save(sender);
         userRepository.save(receiver);
         friendRequestRepository.delete(friendRequest);
     }

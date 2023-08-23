@@ -49,7 +49,7 @@ public class UserController {
         if (userService.deleteUser(username) == 1) {
             return ResponseEntity.ok(String.format("User %s was deleted successfully.", username));
         }
-        return ResponseEntity.badRequest().body(new AppException("Something went wrong. Try again.Source: ",
-                this.getClass().getSimpleName() + "."));
+        return ResponseEntity.badRequest().body(new AppException("Something went wrong. Try again.Source: " +
+                "UserController."));
     }
 }

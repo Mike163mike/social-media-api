@@ -10,6 +10,4 @@ import lombok.Setter;
 public class AppException extends RuntimeException {
 
     private String message;
-    private String source;
-
 }
