@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,7 +65,7 @@ public class UserService {
         List<String> newRoles = roles.stream()
                 .map(String::toUpperCase)
                 .toList();
-        return STRING_ROLES.containsAll(newRoles);
+        return new HashSet<>(STRING_ROLES).containsAll(newRoles);
     }
 
     List<Role> getRoles(List<String> strings) {
