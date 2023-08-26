@@ -35,7 +35,7 @@ public class PostService {
     public Post editPostById(UUID id, Post post) {
         User publisher = userRepository.findUserByUsername(securityContextService.getUserName());
         Post postInRep = postRepository.findById(id)
-                .orElseThrow(() -> new AppException("Post with id = " + id + " not found.Source: " +
+                .orElseThrow(() -> new AppException("Post with id = " + id + " not found. Source: " +
                         "PostService."));
         postInRep.setTitle(post.getTitle());
         postInRep.setMessage(post.getMessage());
